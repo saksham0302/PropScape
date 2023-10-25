@@ -2,6 +2,7 @@ package com.example.propscape.user_creation
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,8 +10,11 @@ import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.room.Room
 import com.example.propscape.Hashed
 import com.example.propscape.Home
@@ -25,6 +29,10 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class LoginPage : AppCompatActivity() {
+
+    private lateinit var cld : ConnectionLiveData
+    private lateinit var internetLayout : CardView
+    private lateinit var wifiImage: ImageView
 
     private lateinit var loginUsername: EditText
     private lateinit var loginPassword: EditText
@@ -47,6 +55,11 @@ class LoginPage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_page)
+
+        checkNetworkConnection()
+
+        internetLayout = findViewById(R.id.internetLayout)
+        wifiImage = findViewById(R.id.wifiImage)
 
         loginUsername = findViewById(R.id.login_username)
         loginPassword = findViewById(R.id.login_password)
@@ -101,6 +114,23 @@ class LoginPage : AppCompatActivity() {
             val intent = Intent(this, SignUpPage::class.java)
             startActivity(intent)
             finish()
+        }
+    }
+
+    private fun checkNetworkConnection() {
+        cld = ConnectionLiveData(application)
+
+        cld.observe(this) { isConnected ->
+
+            if (isConnected) {
+
+                internetLayout.visibility = View.GONE
+                wifiImage.setColorFilter(Color.GREEN)
+
+            } else {
+                internetLayout.visibility = View.VISIBLE
+                wifiImage.setColorFilter(Color.RED)
+            }
         }
     }
 
@@ -188,7 +218,7 @@ class LoginPage : AppCompatActivity() {
 
         return if (validate.isEmpty()) {
 
-            loginPassword.error = "Username cannot be empty"
+            loginPassword.error = "Password cannot be empty"
             false
 
         } else {
