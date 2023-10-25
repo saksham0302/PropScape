@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "769663264452",
+    "project_id": "propscape-64295",
+    "storage_bucket": "propscape-64295.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:769663264452:android:ab9e9f12a5e0fcfa430b91",
+        "android_client_info": {
+          "package_name": "com.example.propscape"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxzcEC-HT6YSNxzZX2YXTIoCejS9wogLc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
