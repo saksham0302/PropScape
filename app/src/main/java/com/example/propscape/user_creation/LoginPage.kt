@@ -1,12 +1,17 @@
 package com.example.propscape.user_creation
 
 import android.content.Intent
+import android.content.SharedPreferences
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.room.Room
 import com.example.propscape.Hashed
 import com.example.propscape.Home
 import com.example.propscape.R
@@ -16,15 +21,26 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class LoginPage : AppCompatActivity() {
 
     private lateinit var loginUsername: EditText
     private lateinit var loginPassword: EditText
     private lateinit var loginBtn: Button
+    private lateinit var savePassword: CheckBox
+    private lateinit var fetchPassword: TextView
     private lateinit var signUpRedirectedText: TextView
+
     private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var roomDatabase: RoomDatabaseDemo
+
+    private val sharedPrefName = "my-pref"
+    private val keyUsername = "username"
+    private val keyPassword = "password"
 
     val hash = Hashed()
 
@@ -34,11 +50,43 @@ class LoginPage : AppCompatActivity() {
 
         loginUsername = findViewById(R.id.login_username)
         loginPassword = findViewById(R.id.login_password)
+        savePassword = findViewById(R.id.savePassword)
+        fetchPassword = findViewById(R.id.fetchPassword)
         loginBtn = findViewById(R.id.login_button)
         signUpRedirectedText = findViewById(R.id.signUpRedirectedText)
 
         firebaseDatabase = FirebaseDatabase.getInstance()
         databaseReference = firebaseDatabase.reference.child("users")
+        sharedPreferences = getSharedPreferences(sharedPrefName, MODE_PRIVATE)
+        roomDatabase = Room.databaseBuilder(
+            applicationContext,
+            RoomDatabaseDemo::class.java, "user"
+        ).allowMainThreadQueries().build()
+
+        val sharedPrefUsername = sharedPreferences.getString(keyUsername, null)
+
+        if (sharedPrefUsername != null) {
+
+            val intent = Intent(this@LoginPage, Home::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        fetchPassword.setOnClickListener {
+
+            val rdUsername = loginUsername.text.toString()
+            val pwd = roomDatabase.RoomDatabaseDao().getUser(rdUsername)
+
+            if (pwd == null)
+                Toast.makeText(this, "You have not saved the password on database!", Toast.LENGTH_SHORT).show()
+            else {
+
+                loginPassword.setText(pwd.password)
+                savePassword.isChecked = false
+                savePassword.visibility = View.GONE
+            }
+        }
+
 
         loginBtn.setOnClickListener {
 
@@ -72,11 +120,25 @@ class LoginPage : AppCompatActivity() {
                         if (userData != null && userData.password == hash.hash(userPassword)) {
 
                             Toast.makeText(this@LoginPage, "Login Successful!", Toast.LENGTH_SHORT).show()
+
+                            val editor: SharedPreferences.Editor = sharedPreferences.edit()
+                            editor.putString(keyUsername, userUsername)
+                            editor.putString(keyPassword, userPassword)
+                            editor.apply()
+
+                            if (savePassword.isChecked) {
+
+                                GlobalScope.launch {
+                                    roomDatabase.RoomDatabaseDao().insert(
+                                        RoomDatabaseUser(
+                                            userUsername,
+                                            userPassword
+                                        )
+                                    )
+                                }
+                            }
+
                             val intent = Intent(this@LoginPage, Home::class.java)
-                            intent.putExtra("name", userData.name)
-                            intent.putExtra("email", userData.email)
-                            intent.putExtra("username", userData.username)
-                            intent.putExtra("profile", userData.profileImageUrl)
                             startActivity(intent)
                             finish()
                             return

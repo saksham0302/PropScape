@@ -59,6 +59,31 @@
                 android:drawablePadding="8dp"
                 android:textColor="@color/black" />
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <CheckBox
+                    android:id="@+id/savePassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Save Password"
+                    android:layout_gravity="left"
+                    android:textColor="@color/teal"/>
+
+                <TextView
+                    android:id="@+id/fetchPassword"
+                    android:layout_gravity="center"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignBaseline="@+id/savePassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fetch Password"
+                    android:textColor="@color/teal" />
+
+            </RelativeLayout>
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
