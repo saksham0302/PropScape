@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".UploadPropScape">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="50dp"
+            android:layout_marginHorizontal="20dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="20dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal"
+                android:padding="20dp"
+                android:background="@drawable/teal_border">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Upload PropScape Data"
+                    android:textSize="30sp"
+                    android:textAlignment="center"
+                    android:textColor="@color/teal" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@drawable/upload_img"
+                    android:id="@+id/uploadImg"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="fitXY" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ownerName"
+                    android:background="@drawable/teal_border"
+                    android:layout_marginTop="20dp"
+                    android:padding="16dp"
+                    android:hint="Enter owner name"
+                    android:inputType="textPersonName"
+                    android:gravity="start|center_vertical"
+                    android:textColor="@color/teal" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ownerPhoneNumber"
+                    android:background="@drawable/teal_border"
+                    android:layout_marginTop="20dp"
+                    android:padding="16dp"
+                    android:hint="Enter owner phone number"
+                    android:inputType="number"
+                    android:digits="1234567890"
+                    android:maxLength="10"
+                    android:gravity="start|center_vertical"
+                    android:textColor="@color/teal" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/address"
+                    android:background="@drawable/teal_border"
+                    android:layout_marginTop="20dp"
+                    android:padding="16dp"
+                    android:hint="Enter property address"
+                    android:inputType="textPostalAddress"
+                    android:gravity="start|center_vertical"
+                    android:textColor="@color/teal" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/city"
+                    android:background="@drawable/teal_border"
+                    android:layout_marginTop="20dp"
+                    android:padding="16dp"
+                    android:hint="Enter city"
+                    android:inputType="text"
+                    android:gravity="start|center_vertical"
+                    android:textColor="@color/teal" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/state"
+                    android:background="@drawable/teal_border"
+                    android:layout_marginTop="20dp"
+                    android:padding="16dp"
+                    android:hint="Enter state"
+                    android:inputType="text"
+                    android:gravity="start|center_vertical"
+                    android:textColor="@color/teal" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/country"
+                    android:background="@drawable/teal_border"
+                    android:layout_marginTop="20dp"
+                    android:padding="16dp"
+                    android:hint="Enter country"
+                    android:inputType="text"
+                    android:gravity="start|center_vertical"
+                    android:textColor="@color/teal" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:padding="4dp"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu" >
+
+                    <AutoCompleteTextView
+                        android:id="@+id/autoCompleteTextview"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:hint="Select type"
+                        android:inputType="none" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/description"
+                    android:background="@drawable/teal_border"
+                    android:layout_marginTop="20dp"
+                    android:padding="16dp"
+                    android:hint="Enter description"
+                    android:maxLines="5"
+                    android:inputType="text|textMultiLine"
+                    android:gravity="start|center_vertical"
+                    android:textColor="@color/teal" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/price"
+                    android:background="@drawable/teal_border"
+                    android:layout_marginTop="20dp"
+                    android:padding="16dp"
+                    android:hint="Enter price"
+                    android:inputType="text"
+                    android:gravity="start|center_vertical"
+                    android:textColor="@color/teal" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="Upload"
+                    android:id="@+id/uploadBtn"
+                    android:textSize="18sp"
+                    android:layout_marginTop="20dp"
+                    app:cornerRadius="20dp" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</ScrollView>

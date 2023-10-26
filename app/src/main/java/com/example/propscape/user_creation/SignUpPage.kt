@@ -4,13 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
-import com.example.propscape.Hashed
-import com.example.propscape.R
 import com.example.propscape.data_classes.UserData
+import com.example.propscape.databinding.ActivitySignUpPageBinding
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -19,37 +15,23 @@ import com.google.firebase.database.ValueEventListener
 
 class SignUpPage : AppCompatActivity() {
 
-    private lateinit var signUpName: EditText
-    private lateinit var signUpEmail: EditText
-    private lateinit var signUpUsername: EditText
-    private lateinit var signUpPassword: EditText
-    private lateinit var signUpBtn: Button
-    private lateinit var loginRedirectedText: TextView
-    private lateinit var firebaseDatabase: FirebaseDatabase
-    private lateinit var databaseReference: DatabaseReference
+    private lateinit var binding: ActivitySignUpPageBinding
 
-    val hash = Hashed()
+    private lateinit var databaseReference: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up_page)
+        binding = ActivitySignUpPageBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        signUpName = findViewById(R.id.signup_name)
-        signUpEmail = findViewById(R.id.signup_email)
-        signUpUsername = findViewById(R.id.signup_username)
-        signUpPassword = findViewById(R.id.signup_password)
-        signUpBtn = findViewById(R.id.signup_button)
-        loginRedirectedText = findViewById(R.id.loginRedirectedText)
+        databaseReference = FirebaseDatabase.getInstance().reference.child("Users")
 
-        firebaseDatabase = FirebaseDatabase.getInstance()
-        databaseReference = firebaseDatabase.reference.child("users")
+        binding.signupButton.setOnClickListener {
 
-        signUpBtn.setOnClickListener {
-
-            val name = signUpName.text.toString()
-            val email = signUpEmail.text.toString()
-            val username = signUpUsername.text.toString()
-            val password = signUpPassword.text.toString()
+            val name = binding.signupName.text.toString()
+            val email = binding.signupEmail.text.toString()
+            val username = binding.signupUsername.text.toString()
+            val password = binding.signupPassword.text.toString()
 
             if (name.isNotEmpty() && email.isNotEmpty()
                 && username.isNotEmpty() && password.isNotEmpty()) {
@@ -69,9 +51,8 @@ class SignUpPage : AppCompatActivity() {
 
                                                 if (!usernameSnapshot.exists()) {
 
-                                                    val id = databaseReference.push().key
-                                                    val userData = UserData(id, name, email, username, hash.hash(password), null)
-                                                    databaseReference.child(id!!).setValue(userData)
+                                                    val userData = UserData(name, email, username, password, null)
+                                                    databaseReference.child(username!!).setValue(userData)
                                                     Toast.makeText(this@SignUpPage,
                                                         "You have signup successfully!", Toast.LENGTH_SHORT).show()
                                                     val intent = Intent(this@SignUpPage, LoginPage::class.java)
@@ -95,7 +76,7 @@ class SignUpPage : AppCompatActivity() {
                                 } else {
 
                                     Toast.makeText(this@SignUpPage, "Enter valid Email address!",
-                                        Toast.LENGTH_SHORT).show();
+                                        Toast.LENGTH_SHORT).show()
                                 }
 
                             } else {
@@ -118,7 +99,7 @@ class SignUpPage : AppCompatActivity() {
             }
         }
 
-        loginRedirectedText.setOnClickListener {
+        binding.loginRedirectedText.setOnClickListener {
 
             val intent = Intent(this, LoginPage::class.java)
             startActivity(intent)

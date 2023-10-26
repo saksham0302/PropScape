@@ -3,23 +3,14 @@ package com.example.propscape.user_creation
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
-import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
-import androidx.cardview.widget.CardView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.room.Room
-import com.example.propscape.Hashed
 import com.example.propscape.Home
-import com.example.propscape.R
 import com.example.propscape.data_classes.UserData
+import com.example.propscape.databinding.ActivityLoginPageBinding
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -30,46 +21,26 @@ import kotlinx.coroutines.launch
 
 class LoginPage : AppCompatActivity() {
 
+    private lateinit var binding: ActivityLoginPageBinding
+
     private lateinit var cld : ConnectionLiveData
-    private lateinit var internetLayout : CardView
-    private lateinit var wifiImage: ImageView
 
-    private lateinit var loginUsername: EditText
-    private lateinit var loginPassword: EditText
-    private lateinit var loginBtn: Button
-    private lateinit var savePassword: CheckBox
-    private lateinit var fetchPassword: TextView
-    private lateinit var signUpRedirectedText: TextView
-
-    private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
-    private lateinit var sharedPreferences: SharedPreferences
+
     private lateinit var roomDatabase: RoomDatabaseDemo
 
+    private lateinit var sharedPreferences: SharedPreferences
     private val sharedPrefName = "my-pref"
     private val keyUsername = "username"
     private val keyPassword = "password"
 
-    val hash = Hashed()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login_page)
+        binding = ActivityLoginPageBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         checkNetworkConnection()
 
-        internetLayout = findViewById(R.id.internetLayout)
-        wifiImage = findViewById(R.id.wifiImage)
-
-        loginUsername = findViewById(R.id.login_username)
-        loginPassword = findViewById(R.id.login_password)
-        savePassword = findViewById(R.id.savePassword)
-        fetchPassword = findViewById(R.id.fetchPassword)
-        loginBtn = findViewById(R.id.login_button)
-        signUpRedirectedText = findViewById(R.id.signUpRedirectedText)
-
-        firebaseDatabase = FirebaseDatabase.getInstance()
-        databaseReference = firebaseDatabase.reference.child("users")
         sharedPreferences = getSharedPreferences(sharedPrefName, MODE_PRIVATE)
         roomDatabase = Room.databaseBuilder(
             applicationContext,
@@ -85,31 +56,31 @@ class LoginPage : AppCompatActivity() {
             finish()
         }
 
-        fetchPassword.setOnClickListener {
+        binding.fetchPassword.setOnClickListener {
 
-            val rdUsername = loginUsername.text.toString()
+            val rdUsername = binding.loginUsername.text.toString()
             val pwd = roomDatabase.RoomDatabaseDao().getUser(rdUsername)
 
             if (pwd == null)
                 Toast.makeText(this, "You have not saved the password on database!", Toast.LENGTH_SHORT).show()
             else {
 
-                loginPassword.setText(pwd.password)
-                savePassword.isChecked = false
-                savePassword.visibility = View.GONE
+                binding.loginPassword.setText(pwd.password)
+                binding.savePassword.isChecked = false
+                binding.savePassword.visibility = View.GONE
             }
         }
 
 
-        loginBtn.setOnClickListener {
+        binding.loginButton.setOnClickListener {
 
             if (validateUsername() && validatePassword()) {
 
-                loginUser(loginUsername.text.toString(), loginPassword.text.toString())
+                loginUser(binding.loginUsername.text.toString(), binding.loginPassword.text.toString())
             }
         }
 
-        signUpRedirectedText.setOnClickListener {
+        binding.signUpRedirectedText.setOnClickListener {
 
             val intent = Intent(this, SignUpPage::class.java)
             startActivity(intent)
@@ -124,17 +95,19 @@ class LoginPage : AppCompatActivity() {
 
             if (isConnected) {
 
-                internetLayout.visibility = View.GONE
-                wifiImage.setColorFilter(Color.GREEN)
+                binding.internetLayout.visibility = View.GONE
+                binding.wifiImage.setColorFilter(Color.GREEN)
 
             } else {
-                internetLayout.visibility = View.VISIBLE
-                wifiImage.setColorFilter(Color.RED)
+                binding.internetLayout.visibility = View.VISIBLE
+                binding.wifiImage.setColorFilter(Color.RED)
             }
         }
     }
 
     private fun loginUser(userUsername: String, userPassword: String) {
+
+        databaseReference = FirebaseDatabase.getInstance().reference.child("Users")
 
         databaseReference.orderByChild("username").equalTo(userUsername)
             .addListenerForSingleValueEvent(object : ValueEventListener {
@@ -147,7 +120,7 @@ class LoginPage : AppCompatActivity() {
 
                         val userData = userSnapshot.getValue(UserData::class.java)
 
-                        if (userData != null && userData.password == hash.hash(userPassword)) {
+                        if (userData != null && userData.password == userPassword) {
 
                             Toast.makeText(this@LoginPage, "Login Successful!", Toast.LENGTH_SHORT).show()
 
@@ -156,7 +129,7 @@ class LoginPage : AppCompatActivity() {
                             editor.putString(keyPassword, userPassword)
                             editor.apply()
 
-                            if (savePassword.isChecked) {
+                            if (binding.savePassword.isChecked) {
 
                                 GlobalScope.launch {
                                     roomDatabase.RoomDatabaseDao().insert(
@@ -175,15 +148,15 @@ class LoginPage : AppCompatActivity() {
 
                         } else {
 
-                            loginPassword.error = "Invalid Credentials"
-                            loginPassword.requestFocus()
+                            binding.loginPassword.error = "Invalid Credentials"
+                            binding.loginPassword.requestFocus()
                         }
                     }
 
                 } else {
 
-                    loginUsername.error = "User does not exist"
-                    loginUsername.requestFocus()
+                    binding.loginUsername.error = "User does not exist"
+                    binding.loginUsername.requestFocus()
                 }
             }
 
@@ -200,30 +173,30 @@ class LoginPage : AppCompatActivity() {
 
     private fun validateUsername(): Boolean {
 
-        val validate = loginUsername.text.toString()
+        val validate = binding.loginUsername.text.toString()
 
         return if (validate.isEmpty()) {
 
-            loginUsername.error = "Username cannot be empty"
+            binding.loginUsername.error = "Username cannot be empty"
             false
         } else {
-            loginUsername.error = null
+            binding.loginUsername.error = null
             true
         }
     }
 
     private fun validatePassword(): Boolean {
 
-        val validate = loginPassword.text.toString()
+        val validate = binding.loginPassword.text.toString()
 
         return if (validate.isEmpty()) {
 
-            loginPassword.error = "Password cannot be empty"
+            binding.loginPassword.error = "Password cannot be empty"
             false
 
         } else {
 
-            loginPassword.error = null
+            binding.loginPassword.error = null
             true
         }
     }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single" >
+
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/baseline_person"
+            android:title="Profile" />
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/baseline_home"
+            android:title="Home" />
+
+        <item
+            android:id="@+id/nav_my_properties"
+            android:icon="@drawable/baseline_add_home_work"
+            android:title="My Properties" />
+
+        <item
+            android:id="@+id/nav_log_out"
+            android:icon="@drawable/baseline_logout"
+            android:title="Log Out" />
+
+        <item android:title="Categories">
+            <menu>
+                <group android:checkableBehavior="single" >
+
+                    <item
+                        android:id="@+id/nav_property"
+                        android:icon="@drawable/baseline_house"
+                        android:title="Property" />
+                    <item
+                        android:id="@+id/nav_land"
+                        android:icon="@drawable/baseline_land"
+                        android:title="Land" />
+
+                </group>
+            </menu>
+        </item>
+
+    </group>
+
+</menu>

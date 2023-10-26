@@ -43,7 +43,7 @@
                     android:id="@+id/wifiImage"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/baseline_wifi_24"
+                    android:src="@drawable/baseline_wifi"
                     app:tint="@android:color/holo_red_dark" />
 
             </LinearLayout>
@@ -142,5 +142,5 @@
             android:textColor="@color/teal" />
 
     </androidx.cardview.widget.CardView>
-s
+
 </LinearLayout>
