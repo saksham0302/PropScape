@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".UploadPropScape"
+    tools:context=".UpdatePropScape"
     android:background="@drawable/background">
 
     <LinearLayout
@@ -32,7 +32,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Upload PropScape Data"
+                    android:text="Update PropScape Data"
                     android:textSize="30sp"
                     android:textAlignment="center"
                     android:textColor="@color/teal" />
@@ -41,7 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:src="@drawable/upload_img"
-                    android:id="@+id/uploadImg"
+                    android:id="@+id/updateImg"
                     android:layout_marginTop="10dp"
                     android:scaleType="fitXY" />
 
@@ -163,8 +163,8 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="Upload"
-                    android:id="@+id/uploadBtn"
+                    android:text="Update"
+                    android:id="@+id/updateBtn"
                     android:textSize="18sp"
                     android:layout_marginTop="20dp"
                     app:cornerRadius="20dp" />

@@ -12,7 +12,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.propscape.data_classes.PropScapeData
 import com.example.propscape.databinding.ActivityHomeBinding
 import com.example.propscape.recycler_adapters.MyPropertyAdapter
@@ -34,7 +33,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     private val sharedPrefName = "my-pref"
     private val keyUsername = "username"
 
-    private lateinit var recyclerView: RecyclerView
     private lateinit var databaseReference: DatabaseReference
 
     val dataList = ArrayList<PropScapeData>()
@@ -130,7 +128,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             val editor: SharedPreferences.Editor = sharedPreferences.edit()
             editor.clear()
             editor.apply()
-
             startActivity(Intent(this, LoginPage::class.java))
             finish()
         }
@@ -259,9 +256,9 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
         for (dataClass in dataList) {
 
-            if (dataClass.city?.lowercase()?.contains(text.lowercase()) == true ||
-                dataClass.state?.lowercase()?.contains(text.lowercase()) == true ||
-                dataClass.propertyType?.lowercase()?.contains(text.lowercase()) == true ||
+            if (dataClass.city?.lowercase()?.startsWith(text.lowercase()) == true ||
+                dataClass.state?.lowercase()?.startsWith(text.lowercase()) == true ||
+                dataClass.propertyType?.lowercase()?.startsWith(text.lowercase()) == true ||
                 dataClass.address?.lowercase()?.contains(text.lowercase()) == true) {
 
                 searchList.add(dataClass)

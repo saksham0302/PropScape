@@ -3,6 +3,7 @@ package com.example.propscape.recycler_adapters
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +15,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.propscape.DisplayProperty
 import com.example.propscape.R
+import com.example.propscape.UpdatePropScape
 import com.example.propscape.data_classes.PropScapeData
 import com.google.android.material.imageview.ShapeableImageView
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
 
 class MyPropertyAdapter(
     private val context: Context,
@@ -56,15 +60,42 @@ class MyPropertyAdapter(
         }
 
         holder.recEdit.setOnClickListener {
-            Toast.makeText(context, "Edit Clicked", Toast.LENGTH_SHORT).show()
+
+            val intent = Intent(context, UpdatePropScape::class.java)
+            intent.putExtra("ownerName", dataList[position].ownerName)
+            intent.putExtra("ownerPhone", dataList[position].ownerPhoneNumber)
+            intent.putExtra("address", dataList[position].address)
+            intent.putExtra("city", dataList[position].city)
+            intent.putExtra("state", dataList[position].state)
+            intent.putExtra("country", dataList[position].country)
+            intent.putExtra("type", dataList[position].propertyType)
+            intent.putExtra("description", dataList[position].propertyDescription)
+            intent.putExtra("image", dataList[position].propertyImageUrl)
+            intent.putExtra("price", dataList[position].propertyPrice)
+            intent.putExtra("key", dataList[position].key)
+            context.startActivity(intent)
         }
 
         holder.recDelete.setOnClickListener {
-            Toast.makeText(
-                context,
-                "Deleted the ${dataList[position].propertyType}",
-                Toast.LENGTH_SHORT
-            ).show()
+
+            val database = FirebaseDatabase.getInstance().reference.child("PropScape")
+            val storage = FirebaseStorage.getInstance()
+
+            val storageReference = dataList[position].propertyImageUrl?.let {
+                storage.getReferenceFromUrl(
+                    it
+                )
+            }
+
+            storageReference?.delete()?.addOnSuccessListener {
+                dataList[position].key?.let {
+                        it1 ->
+                    database.child(it1).removeValue().addOnSuccessListener {
+
+                        Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
 
         holder.recCard.setOnClickListener {

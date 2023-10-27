@@ -2,6 +2,7 @@ package com.example.propscape.data_classes
 
 data class PropScapeData(
 
+    var key: String? = null,
     var ownerUsername: String? = null,
     var ownerName: String? = null,
     var ownerPhoneNumber: String? = null,

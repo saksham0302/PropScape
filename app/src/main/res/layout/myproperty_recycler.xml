@@ -20,8 +20,7 @@
             android:layout_height="150dp"
             android:id="@+id/recImage"
             android:scaleType="centerCrop"
-            android:src="@drawable/upload_img"
-            app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
+            android:src="@drawable/upload_img" />
 
         <TextView
             android:id="@+id/recCityStateCountry"
