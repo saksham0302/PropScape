@@ -17,9 +17,9 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:id="@+id/recImage"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             android:src="@drawable/upload_img" />
 
         <TextView

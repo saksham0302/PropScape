@@ -1,6 +1,7 @@
 package com.example.propscape
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -34,7 +35,10 @@ class DisplayProperty : AppCompatActivity() {
 
         binding.checkOnMaps.setOnClickListener {
 
-            Toast.makeText(this, "Check on Maps Clicked", Toast.LENGTH_SHORT).show()
+            val address = intent.getStringExtra("addressGeo")
+            val intent = Intent(this, CheckMaps::class.java)
+            intent.putExtra("addressGeo", address)
+            startActivity(intent)
         }
     }
 }

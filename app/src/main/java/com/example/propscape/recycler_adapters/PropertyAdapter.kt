@@ -8,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.propscape.CheckMaps
 import com.example.propscape.DisplayProperty
 import com.example.propscape.R
 import com.example.propscape.data_classes.PropScapeData
@@ -50,7 +50,12 @@ class PropertyAdapter(
         holder.recPrice.text = dataList[position].propertyPrice
 
         holder.recCheckOnMaps.setOnClickListener {
-            Toast.makeText(context, "Check on Maps Clicked", Toast.LENGTH_SHORT).show()
+
+            val intent = Intent(context, CheckMaps::class.java)
+            intent.putExtra("addressGeo",
+                "${dataList[position].address}, ${dataList[position].city}, " +
+                        "${dataList[position].state}, ${dataList[position].country}")
+            context.startActivity(intent)
         }
 
         holder.recCard.setOnClickListener {
@@ -59,6 +64,9 @@ class PropertyAdapter(
             intent.putExtra("ownerName", dataList[position].ownerName)
             intent.putExtra("ownerPhone", dataList[position].ownerPhoneNumber)
             intent.putExtra("address", dataList[position].address)
+            intent.putExtra("addressGeo",
+                "${dataList[position].address}, ${dataList[position].city}, " +
+                        "${dataList[position].state}, ${dataList[position].country}")
             intent.putExtra("cityStateCountry", "${dataList[position].city}, ${dataList[position].state}, ${dataList[position].country}")
             intent.putExtra("type", dataList[position].propertyType)
             intent.putExtra("description", dataList[position].propertyDescription)

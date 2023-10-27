@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,22 +17,20 @@
         android:theme="@style/Theme.PropScape"
         tools:targetApi="31">
         <activity
+            android:name=".CheckMaps"
+            android:exported="true" />
+        <activity
             android:name=".UpdatePropScape"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".Profile"
-            android:exported="false" />
-        <activity
-            android:name=".Property"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".DisplayProperty"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".UploadPropScape"
-            android:exported="false"
-            android:label="@string/title_activity_upload_prop_scape"
-            android:theme="@style/Theme.PropScape" />
+            android:exported="true" />
         <activity
             android:name=".SplashScreen"
             android:exported="true">
