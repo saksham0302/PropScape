@@ -45,24 +45,47 @@
                     android:layout_marginTop="10dp"
                     android:scaleType="fitXY" />
 
+                <TextView
+                    android:layout_marginTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Click on image to select new one."
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name:"
+                    android:textSize="15sp" />
+
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/ownerName"
                     android:background="@drawable/teal_border"
-                    android:layout_marginTop="20dp"
                     android:padding="16dp"
                     android:hint="Enter owner name"
                     android:inputType="textPersonName"
                     android:gravity="start|center_vertical"
                     android:textColor="@color/teal" />
 
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Number:"
+                    android:textSize="15sp" />
+
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/ownerPhoneNumber"
                     android:background="@drawable/teal_border"
-                    android:layout_marginTop="20dp"
                     android:padding="16dp"
                     android:hint="Enter owner phone number"
                     android:inputType="number"
@@ -71,58 +94,98 @@
                     android:gravity="start|center_vertical"
                     android:textColor="@color/teal" />
 
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address:"
+                    android:textSize="15sp" />
+
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/address"
                     android:background="@drawable/teal_border"
-                    android:layout_marginTop="20dp"
                     android:padding="16dp"
                     android:hint="Enter property address"
                     android:inputType="textPostalAddress"
                     android:gravity="start|center_vertical"
                     android:textColor="@color/teal" />
 
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="City:"
+                    android:textSize="15sp" />
+
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/city"
                     android:background="@drawable/teal_border"
-                    android:layout_marginTop="20dp"
                     android:padding="16dp"
                     android:hint="Enter city"
                     android:inputType="text"
                     android:gravity="start|center_vertical"
                     android:textColor="@color/teal" />
 
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="State:"
+                    android:textSize="15sp" />
+
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/state"
                     android:background="@drawable/teal_border"
-                    android:layout_marginTop="20dp"
                     android:padding="16dp"
                     android:hint="Enter state"
                     android:inputType="text"
                     android:gravity="start|center_vertical"
                     android:textColor="@color/teal" />
 
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Country:"
+                    android:textSize="15sp" />
+
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/country"
                     android:background="@drawable/teal_border"
-                    android:layout_marginTop="20dp"
                     android:padding="16dp"
                     android:hint="Enter country"
                     android:inputType="text"
                     android:gravity="start|center_vertical"
                     android:textColor="@color/teal" />
 
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Type:"
+                    android:textSize="15sp" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
                     android:padding="4dp"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu" >
 
@@ -135,12 +198,20 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Description:"
+                    android:textSize="15sp" />
+
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/description"
                     android:background="@drawable/teal_border"
-                    android:layout_marginTop="20dp"
                     android:padding="16dp"
                     android:hint="Enter description"
                     android:maxLines="5"
@@ -148,12 +219,20 @@
                     android:gravity="start|center_vertical"
                     android:textColor="@color/teal" />
 
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Price:"
+                    android:textSize="15sp" />
+
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/price"
                     android:background="@drawable/teal_border"
-                    android:layout_marginTop="20dp"
                     android:padding="16dp"
                     android:hint="Enter price"
                     android:inputType="text"

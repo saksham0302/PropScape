@@ -197,7 +197,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         binding.recyclerView.adapter = myPropertyAdapter
 
         sharedPreferences = getSharedPreferences(sharedPrefName, MODE_PRIVATE)
-
         val sharedPrefUsername = sharedPreferences.getString(keyUsername, null)
 
         databaseReference = FirebaseDatabase.getInstance().reference.child("PropScape")

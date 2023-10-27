@@ -55,7 +55,7 @@
                 android:padding="12dp"
                 android:hint="Email"
                 android:inputType="textEmailAddress"
-                android:drawableLeft="@drawable/baseline_person"
+                android:drawableLeft="@drawable/baseline_email"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black" />
 
