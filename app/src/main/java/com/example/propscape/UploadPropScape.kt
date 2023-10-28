@@ -74,6 +74,11 @@ class UploadPropScape : AppCompatActivity() {
 
     private fun saveData() {
 
+        uri.lastPathSegment?.let {
+            FirebaseStorage.getInstance().reference
+                .child("Property Images").child(it).delete()
+        }
+
         val storageReference = uri.lastPathSegment?.let {
             FirebaseStorage.getInstance().reference
                 .child("Property Images").child(it)
@@ -130,6 +135,9 @@ class UploadPropScape : AppCompatActivity() {
             .addOnSuccessListener {
 
                 Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, Home::class.java)
+                    .putExtra("bool", true)
+                startActivity(intent)
                 finish()
 
             }.addOnFailureListener {

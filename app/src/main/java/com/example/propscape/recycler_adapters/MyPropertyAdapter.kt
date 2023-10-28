@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.propscape.CheckMaps
 import com.example.propscape.DisplayProperty
+import com.example.propscape.Home
 import com.example.propscape.R
 import com.example.propscape.UpdatePropScape
 import com.example.propscape.data_classes.PropScapeData
@@ -79,6 +80,7 @@ class MyPropertyAdapter(
             intent.putExtra("price", dataList[position].propertyPrice)
             intent.putExtra("key", dataList[position].key)
             context.startActivity(intent)
+            (context as Home).finish()
         }
 
         holder.recDelete.setOnClickListener {
@@ -98,6 +100,10 @@ class MyPropertyAdapter(
                     database.child(it1).removeValue().addOnSuccessListener {
 
                         Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(context, Home::class.java)
+                        intent.putExtra("bool", true)
+                        context.startActivity(intent)
+                        (context as Home).finish()
                     }
                 }
             }

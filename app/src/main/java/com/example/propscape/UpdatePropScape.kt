@@ -99,6 +99,8 @@ class UpdatePropScape : AppCompatActivity() {
 
     private fun saveData() {
 
+        FirebaseStorage.getInstance().getReferenceFromUrl(oldImageUrl).delete()
+
         val storageReference = uri.lastPathSegment?.let {
             FirebaseStorage.getInstance().reference.child("Property Images").child(it)
         }
@@ -146,14 +148,11 @@ class UpdatePropScape : AppCompatActivity() {
         FirebaseDatabase.getInstance().reference.child("PropScape").child(key).setValue(data)
             .addOnSuccessListener {
 
-                val storage = FirebaseStorage.getInstance()
-                val storageReference = storage.getReferenceFromUrl(oldImageUrl)
-
-                storageReference.delete().addOnSuccessListener {
-
-                    Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show()
-                    finish()
-                }
+                Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, Home::class.java)
+                    .putExtra("bool", true)
+                startActivity(intent)
+                finish()
 
             }.addOnFailureListener {
 

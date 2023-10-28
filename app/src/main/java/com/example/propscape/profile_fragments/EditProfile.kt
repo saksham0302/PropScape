@@ -118,6 +118,8 @@ class EditProfile : Fragment() {
 
         saveButton.setOnClickListener {
 
+            FirebaseStorage.getInstance().getReferenceFromUrl(oldImageUrl).delete()
+
             val storageReference = uri.lastPathSegment?.let {
                 FirebaseStorage.getInstance().reference.child("User Images").child(it)
             }
@@ -192,7 +194,7 @@ class EditProfile : Fragment() {
 
                         Toast.makeText(con, "Saved", Toast.LENGTH_SHORT).show()
                         val mai = activity as Profile
-                        mai.pop(true)
+                        mai.interchange(true)
                     }
                 }
 

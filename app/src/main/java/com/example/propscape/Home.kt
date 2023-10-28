@@ -43,16 +43,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.navView.setNavigationItemSelectedListener(this)
-        binding.search.clearFocus()
-
-        binding.recyclerView.layoutManager = GridLayoutManager(this, 1)
-
-        navigation(savedInstanceState)
-    }
-
-    private fun navigation(savedInstanceState: Bundle?) {
-
         setSupportActionBar(binding.toolbar)
 
         binding.navView.setNavigationItemSelectedListener(this)
@@ -65,7 +55,17 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         binding.drawer.addDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
 
-        if (savedInstanceState == null) {
+        binding.navView.setNavigationItemSelectedListener(this)
+        binding.search.clearFocus()
+
+        binding.recyclerView.layoutManager = GridLayoutManager(this, 1)
+
+        if (intent.getBooleanExtra("bool", false)) {
+
+            myProperty()
+            binding.navView.setCheckedItem(R.id.nav_my_properties)
+
+        } else {
             property("")
             binding.navView.setCheckedItem(R.id.nav_home)
         }
@@ -82,15 +82,10 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
             binding.navView.setNavigationItemSelectedListener(this)
 
-            if (binding.navView.menu.findItem(R.id.nav_home).isChecked)
-                super.onBackPressed()
+            if (!binding.navView.menu.findItem(R.id.nav_home).isChecked) {
 
-            else {
-
-                binding.search.visibility = View.VISIBLE
-                binding.title.visibility = View.GONE
-                binding.fab.visibility = View.GONE
                 binding.navView.setCheckedItem(R.id.nav_home)
+                property("")
             }
         }
     }
@@ -99,7 +94,10 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
         when (item.itemId) {
 
-            R.id.nav_profile -> startActivity(Intent(this, Profile::class.java))
+            R.id.nav_profile -> {
+                startActivity(Intent(this, Profile::class.java))
+                finish()
+            }
 
             R.id.nav_home -> property("")
 
