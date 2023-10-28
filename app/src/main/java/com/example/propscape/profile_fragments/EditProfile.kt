@@ -118,8 +118,6 @@ class EditProfile : Fragment() {
 
         saveButton.setOnClickListener {
 
-            FirebaseStorage.getInstance().getReferenceFromUrl(oldImageUrl).delete()
-
             val storageReference = uri.lastPathSegment?.let {
                 FirebaseStorage.getInstance().reference.child("User Images").child(it)
             }

@@ -71,6 +71,7 @@ class Profile : AppCompatActivity(), InterchangeInterface {
         if (bool) {
 
             supportFragmentManager.popBackStack()
+            boolFrag = true
         }
     }
 
@@ -82,7 +83,5 @@ class Profile : AppCompatActivity(), InterchangeInterface {
             startActivity(Intent(this, Home::class.java))
             finish()
         }
-        else
-            supportFragmentManager.popBackStack()
     }
 }
